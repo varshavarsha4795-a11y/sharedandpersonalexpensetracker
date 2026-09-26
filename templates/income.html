@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- PWA: installable app icon + behaviour -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2b1552">
+    <link rel="icon" href="{{ url_for('static', filename='icons/icon-32.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-180.png') }}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script defer src="{{ url_for('static', filename='pwa.js') }}"></script>
+    <title>Income</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='income.css') }}?v=20260723v3">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <a href="/dashboard" class="back-btn">
+    ←
+</a>
+
+<div class="container">
+
+    <h1>Income</h1>
+
+    <div class="total-card">
+        <h3>Total Income</h3>
+        <h2>₹{{ total_income }}</h2>
+    </div>
+
+    <form method="POST">
+
+        <label>Income Source</label>
+        <input type="text" name="source" placeholder="Salary / Freelance">
+
+        <label>Amount</label>
+        <input type="number" name="amount" placeholder="Enter Amount">
+
+        <label>Date</label>
+        <input type="date" name="date">
+
+        <label>Notes</label>
+        <textarea name="description" placeholder="Optional"></textarea>
+
+        <button type="submit">Add Income</button>
+
+    </form>
+
+    <br>
+
+    <h3>Recent Income</h3>
+
+    {% for income in incomes %}
+
+    <div class="income-item">
+        <span>{{ income['source'] }}</span>
+        <span>₹{{ income['amount'] }}</span>
+    </div>
+
+    {% endfor %}
+
+</div>
+
+</body>
+</html>

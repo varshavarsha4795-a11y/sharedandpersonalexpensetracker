@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- PWA: installable app icon + behaviour -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2b1552">
+    <link rel="icon" href="{{ url_for('static', filename='icons/icon-32.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-180.png') }}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script defer src="{{ url_for('static', filename='pwa.js') }}"></script>
+    <title>Register - Expense Tracker</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=20260723v3">
+</head>
+<body>
+
+<div class="main-container">
+
+    <div class="left-section">
+        <img src="{{ url_for('static', filename='images/wallet.png') }}" alt="Wallet">
+    </div>
+
+    <div class="login-card">
+
+        <h1>Create Account</h1>
+        <p>Join Expense Tracker Today</p>
+
+        <!-- Flash Message -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-message">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="/register">
+
+            <label>Username</label>
+            <input type="text"
+                   name="name"
+                   placeholder="Enter username"
+                   required>
+
+            <label>Email</label>
+            <input type="email"
+                   name="email"
+                   placeholder="Enter email"
+                   required>
+
+            <label>Phone Number</label>
+            <input type="text"
+                   name="phone"
+                   placeholder="Enter phone number"
+                   required>
+
+            <label>Password</label>
+            <input type="password"
+                   name="password"
+                   placeholder="Enter password"
+                   required>
+
+            <label>Confirm Password</label>
+            <input type="password"
+                   name="confirm_password"
+                   placeholder="Confirm password"
+                   required>
+
+            <button type="submit">
+                REGISTER
+            </button>
+
+        </form>
+
+        <div class="bottom-link">
+            Already have an account?
+            <a href="/">Login</a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

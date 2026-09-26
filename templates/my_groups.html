@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- PWA: installable app icon + behaviour -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2b1552">
+    <link rel="icon" href="{{ url_for('static', filename='icons/icon-32.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-180.png') }}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script defer src="{{ url_for('static', filename='pwa.js') }}"></script>
+    <title>My Groups</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='group_expense.css') }}?v=20260723v3">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<a href="/dashboard" class="back-btn">←</a>
+
+<div class="container">
+
+    <h1>📂 My Groups</h1>
+
+    {% if groups %}
+
+        {% for group in groups %}
+
+        <div class="card">
+
+            <h2>{{ group['group_name'] }}</h2>
+
+            <p><b>Group Code :</b> {{ group['group_code'] }}</p>
+
+            <a href="/open_group/{{ group['group_id'] }}">
+                <button type="button">
+                    Open Group
+                </button>
+            </a>
+
+            <a href="/settlement/{{ group['group_id'] }}">
+                <button type="button" style="background:linear-gradient(90deg,#00c9a7,#00b894); margin-top:10px;">
+                    💰 View Settlement
+                </button>
+            </a>
+
+            {% if group['created_by'] == current_user_id %}
+            <form action="/delete_group/{{ group['group_id'] }}" method="POST"
+                  onsubmit="return confirm('Delete this group? This removes its expenses and settlements too.');"
+                  style="margin-top:10px;">
+                <button type="submit" class="delete-btn" style="width:100%;">
+                    🗑 Delete Group
+                </button>
+            </form>
+            {% endif %}
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="card">
+            <h2>No Groups Found</h2>
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- PWA: installable app icon + behaviour -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2b1552">
+    <link rel="icon" href="{{ url_for('static', filename='icons/icon-32.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-180.png') }}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script defer src="{{ url_for('static', filename='pwa.js') }}"></script>
+    <title>Settings</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='settings.css') }}?v=20260723v3">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<a href="/dashboard" class="back-btn">
+    ←
+</a>
+
+<div class="container">
+
+    <h1>⚙️ Settings</h1>
+
+    <!-- Change Password -->
+
+    <div class="card">
+
+        <h2>🔒 Change Password</h2>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+
+            <div style="color:#00ff88; margin-bottom:15px;">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+
+        {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+
+            <label>Current Password</label>
+
+            <input
+                type="password"
+                name="current_password"
+                placeholder="Enter Current Password"
+                required
+            >
+
+            <label>New Password</label>
+
+            <input
+                type="password"
+                name="new_password"
+                placeholder="Enter New Password"
+                required
+            >
+
+            <label>Confirm Password</label>
+
+            <input
+                type="password"
+                name="confirm_password"
+                placeholder="Confirm New Password"
+                required
+            >
+
+            <button type="submit">
+                🔒 Update Password
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- Notifications -->
+
+    <div class="card">
+
+        <h2>🔔 Notifications</h2>
+
+        <label>
+            <input type="checkbox">
+            Enable Notifications
+        </label>
+
+    </div>
+
+    <!-- About -->
+
+    <div class="card">
+
+        <h2>ℹ️ About</h2>
+
+        <p>
+            Shared Expense Tracker helps users manage personal expenses,
+            group expenses, settlements and reports easily.
+        </p>
+
+        <p>
+            Version : 1.0
+        </p>
+
+    </div>
+
+    <!-- Logout -->
+
+    <div class="card">
+
+        <a href="/logout">
+            <button type="button">
+                🚪 Logout
+            </button>
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

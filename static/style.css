@@ -1,0 +1,338 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+
+    background:
+    radial-gradient(circle at top left,#240046,#0b021d 35%),
+    radial-gradient(circle at bottom right,#3c096c,#0b021d 40%),
+    #0b021d;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    overflow:hidden;
+}
+
+.main-container{
+    width:90%;
+    max-width:1400px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    gap:50px;
+}
+
+/* LEFT SIDE */
+
+.left-section{
+    flex:1;
+    text-align:center;
+}
+
+.left-section img{
+    width:550px;
+    max-width:100%;
+
+    filter:drop-shadow(0 0 35px rgba(168,85,247,0.8));
+}
+
+/* LOGIN CARD */
+
+.login-card{
+
+    width:500px;
+
+    background:rgba(26,8,56,0.92);
+
+    border:1px solid rgba(168,85,247,0.4);
+
+    border-radius:25px;
+
+    padding:40px;
+
+    backdrop-filter:blur(20px);
+
+    box-shadow:
+    0 0 20px rgba(168,85,247,0.25),
+    0 0 50px rgba(168,85,247,0.15);
+
+}
+
+.login-card h1{
+    text-align:center;
+    color:white;
+    font-size:38px;
+    margin-bottom:10px;
+}
+
+.login-card p{
+    text-align:center;
+    color:#b8b8d0;
+    margin-bottom:30px;
+}
+
+.login-card p::after{
+    content:'';
+    display:block;
+    width:80px;
+    height:3px;
+    background:#a855f7;
+    margin:15px auto 0;
+    border-radius:10px;
+}
+
+.login-card label{
+    display:block;
+    color:white;
+    margin-top:18px;
+    margin-bottom:8px;
+}
+
+.login-card input[type="text"],
+.login-card input[type="password"]{
+
+    width:100%;
+    padding:15px;
+
+    background:#14052c;
+
+    border:1px solid #4c1d95;
+
+    border-radius:12px;
+
+    color:white;
+
+    outline:none;
+}
+
+.login-card input:focus{
+    border-color:#a855f7;
+
+    box-shadow:0 0 15px rgba(168,85,247,0.5);
+}
+
+.options{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:15px;
+}
+
+.options label{
+    margin:0;
+    color:#d1d1e0;
+}
+
+.options a{
+    color:#c084fc;
+    text-decoration:none;
+}
+
+button{
+
+    width:100%;
+
+    margin-top:25px;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+    90deg,
+    #7b2ff7,
+    #c084fc
+    );
+
+    color:white;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+button:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 0 20px rgba(168,85,247,0.7);
+}
+.bottom-link{
+    text-align:center;
+    margin-top:20px;
+    color:#b8b8d0;
+}
+
+.bottom-link a{
+    color:#c084fc;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.bottom-link a:hover{
+    color:white;
+}
+.bottom-link{
+    text-align:center;
+    margin-top:20px;
+    color:#b8b8d0;
+}
+
+.bottom-link a{
+    color:#c084fc;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.bottom-link a:hover{
+    color:white;
+}
+.dashboard-container{
+    width:90%;
+    margin:auto;
+    padding-top:50px;
+}
+
+.dashboard-container h1{
+    text-align:center;
+    color:white;
+    margin-bottom:40px;
+}
+
+.card-container{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
+}
+
+.dashboard-card{
+    background:rgba(26,8,56,0.92);
+    border:1px solid rgba(168,85,247,0.4);
+    border-radius:20px;
+    padding:30px;
+    text-align:center;
+
+    box-shadow:
+    0 0 20px rgba(168,85,247,0.25);
+}
+
+.dashboard-card h2{
+    color:#c084fc;
+    margin-bottom:10px;
+}
+
+.dashboard-card p{
+    color:#ffffff;
+}
+.dashboard-card p{
+    color:#ffffff;
+}
+
+/* Paste here 👇 */
+
+.app-title{
+    text-align:center;
+    color:#C084FC;
+    font-size:24px;
+    font-weight:700;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:10px;
+}
+
+.flash-message{
+    width:100%;
+    padding:12px;
+    margin-bottom:20px;
+    background:rgba(168,85,247,0.15);
+    border:1px solid #A855F7;
+    border-radius:10px;
+    color:#FFFFFF;
+    text-align:center;
+    font-size:15px;
+    font-weight:500;
+    box-shadow:0 0 15px rgba(168,85,247,0.25);
+}
+
+.login-card input[type="email"]{
+    width:100%;
+    padding:15px;
+    background:#14052c;
+    border:1px solid #4c1d95;
+    border-radius:12px;
+    color:white;
+    outline:none;
+}
+
+.login-card input[type="email"]:focus{
+    border-color:#a855f7;
+    box-shadow:0 0 15px rgba(168,85,247,0.5);
+}
+/* ===========================================
+   EXPENSE TRACKER - LOGIN PAGE
+=========================================== */
+
+.page-title{
+    position:absolute;
+    top:25px;
+    left:50%;
+    transform:translateX(-50%);
+    color:#ffffff;
+    font-size:46px;
+    font-weight:700;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    text-shadow:
+        0 0 15px rgba(168,85,247,0.8),
+        0 0 30px rgba(168,85,247,0.5);
+}
+
+.flash-message{
+    width:100%;
+    padding:12px;
+    margin-bottom:20px;
+    background:rgba(168,85,247,0.15);
+    border:1px solid #A855F7;
+    border-radius:10px;
+    color:#ffffff;
+    text-align:center;
+    font-size:15px;
+    font-weight:500;
+}
+
+.login-card input[type="email"]{
+    width:100%;
+    padding:15px;
+    background:#14052c;
+    border:1px solid #4c1d95;
+    border-radius:12px;
+    color:white;
+    outline:none;
+}
+
+.login-card input[type="email"]:focus{
+    border-color:#a855f7;
+    box-shadow:0 0 15px rgba(168,85,247,0.5);
+}
+
+/* Clearer, more readable input text across login/register/forgot-password */
+.login-card input[type="text"],
+.login-card input[type="password"],
+.login-card input[type="email"]{
+    font-size:20px;
+    font-weight:600;
+}

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- PWA: installable app icon + behaviour -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2b1552">
+    <link rel="icon" href="{{ url_for('static', filename='icons/icon-32.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-180.png') }}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script defer src="{{ url_for('static', filename='pwa.js') }}"></script>
+    <title>Shared Expense</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='group_expense.css') }}?v=20260723v3">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <a href="/dashboard" class="back-btn">
+    ←
+</a>
+
+<div class="container">
+
+    <h1>👥 Shared Expense</h1>
+
+    <!-- Summary -->
+
+    <div class="summary">
+
+        <div class="summary-card">
+            <h3>Total Group Expense</h3>
+            <h2 id="totalExpense">₹{{ total_expense }}</h2>
+        </div>
+
+        <div class="summary-card">
+            <h3>Total Members</h3>
+            <h2 id="memberCount">{{ total_members }}</h2>
+        </div>
+
+        <div class="summary-card">
+            <h3>Per Person</h3>
+            <h2 id="splitAmount">₹{{ "%.2f"|format(split_amount) }}</h2>
+        </div>
+
+    </div>
+
+    <!-- Create & Join Group -->
+
+    <div class="group-section">
+
+        <div class="card">
+
+            <h2>✨ Create Group</h2>
+<form action="/create_group" method="POST">
+
+    <input
+        type="text"
+        name="group_name"
+        id="groupName"
+        placeholder="Enter Group Name"
+        required
+    >
+
+    <button type="submit">
+        Create Group
+    </button>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == 'group_code' %}
+                <p style="color:#A855F7; margin-top:10px; font-weight:bold;">
+                    Group Code : {{ message }}
+                </p>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+</form>
+
+            
+
+        </div>
+
+        <div class="card">
+
+            <h2>🔑 Join Group</h2>
+<form action="/join_group" method="POST">
+
+    <input
+        type="text"
+        name="group_code"
+        placeholder="Enter Group Code"
+        required
+    >
+
+    <button type="submit">
+        Join Group
+    </button>
+
+</form>
+
+        </div>
+
+    </div>
+
+    <!-- Add Expense -->
+
+    <div class="card">
+
+        <h2>💸 Add Shared Expense</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category != 'group_code' %}
+                    <div class="flash-msg {{ 'flash-error' if category == 'error' else 'flash-success' }}">
+                        {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="/group_expense">
+
+        <div class="form-grid">
+
+            <input type="text" id="expenseName" name="expense_name" placeholder="Expense Name" required>
+
+            <input type="number" id="amount" name="amount" placeholder="Amount" required>
+
+            <select id="paidBy" name="paid_by" required>
+                <option value="">Who Paid?</option>
+                {% for member in members %}
+                <option value="{{ member['name'] }}">{{ member['name'] }}</option>
+                {% endfor %}
+            </select>
+
+    
+<select id="category" name="category" required>
+    <option value="">Select Category</option>
+    <option value="Food">Food</option>
+    <option value="Rent">Rent</option>
+    <option value="Travel">Travel</option>
+    <option value="Shopping">Shopping</option>
+    <option value="Bills">Bills</option>
+    <option value="Others">Others</option>
+</select>
+
+            <input type="date" id="expenseDate" name="date" required>
+
+        </div>
+
+        <button type="submit">
+                ➗ Split Expense
+        </button>
+
+        </form>
+
+    </div>
+
+    <!-- Split Result -->
+
+    <div class="card">
+
+        <h2>🧮 Split Result</h2>
+
+        <div class="result-box">
+
+            <h3>Each Person Should Pay</h3>
+
+            <h1 id="resultAmount">₹{{ "%.2f"|format(split_amount) }}</h1>
+
+        </div>
+
+    </div>
+
+    <!-- Expense History -->
+
+    <div class="card">
+
+        <h2>📋 Expense History</h2>
+
+        <table id="expenseTable">
+
+            <thead>
+
+                <tr>
+
+                    <th>Group</th>
+                    <th>Expense</th>
+                    <th>Category</th>
+                    <th>Paid By</th>
+                    <th>Total</th>
+                    <th>Members</th>
+                    <th>Per Person</th>
+                    <th>Date</th>
+                    <th>Settlement</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+{% for expense in expenses %}
+
+<tr>
+
+    <td>{{ expense['group_name'] }}</td>
+    <td>{{ expense['expense_name'] }}</td>
+    <td>{{ expense['category'] }}</td>
+    <td>{{ expense['paid_by'] }}</td>
+    <td>₹{{ expense['amount'] }}</td>
+    <td>{{ expense['live_member_count'] }}</td>
+    <td>{% if expense['live_member_count'] > 0 %}
+₹{{ "%.2f"|format(expense['amount'] / expense['live_member_count']) }}
+{% else %}
+₹0.00
+{% endif %}</td>
+    <td>{{ expense['date'] }}</td>
+    <td>
+{% if expense['total_shares'] and expense['total_shares'] > 0 %}
+    {% if expense['paid_shares'] == expense['total_shares'] %}
+        <span class="paid">✅ All Paid</span>
+    {% else %}
+        <span class="pending">⏳ {{ expense['paid_shares'] }}/{{ expense['total_shares'] }} Paid</span>
+    {% endif %}
+{% else %}
+    <span class="pending">-</span>
+{% endif %}
+    </td>
+    <td>
+    <a href="/delete_group_expense/{{ expense['group_expense_id'] }}"
+       onclick="return confirm('Delete this expense?')"
+       class="delete-btn">
+        Delete
+    </a>
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='group_expense.js') }}?v=20260723v3"></script>
+
+</body>
+</html>

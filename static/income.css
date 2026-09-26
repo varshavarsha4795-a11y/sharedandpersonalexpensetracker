@@ -1,0 +1,203 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    font-size:17px;
+
+    background:
+    radial-gradient(circle at top left,#240046,#0b021d 35%),
+    radial-gradient(circle at bottom right,#3c096c,#0b021d 40%),
+    #0b021d;
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    color:white;
+}
+
+.container{
+
+    width:600px;
+    max-width:92vw;
+
+    background:rgba(26,8,56,.92);
+
+    border:1px solid rgba(168,85,247,.4);
+
+    border-radius:25px;
+
+    padding:40px;
+
+    box-shadow:0 0 25px rgba(168,85,247,.3);
+
+}
+
+h1{
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+    font-size:32px;
+
+}
+
+.total-card{
+
+    background:linear-gradient(135deg,#6d28d9,#9333ea);
+
+    border-radius:18px;
+
+    padding:20px;
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+}
+
+.total-card h2{
+
+    font-size:35px;
+
+    margin-top:10px;
+
+}
+
+label{
+
+    display:block;
+
+    margin-top:18px;
+
+    margin-bottom:8px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    color:#e8e0f7;
+
+}
+
+input,
+textarea{
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:12px;
+
+    background:#14052c;
+
+    color:white;
+
+    font-size:20px;
+
+    font-weight:600;
+
+}
+
+/* Make the native calendar icon visible on this dark theme */
+input[type="date"]{
+    color-scheme:dark;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator{
+    filter:invert(1) brightness(1.6);
+    cursor:pointer;
+    padding:4px;
+    border-radius:6px;
+}
+
+textarea{
+
+    resize:none;
+
+    height:90px;
+
+}
+
+button{
+
+    width:100%;
+
+    margin-top:25px;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(90deg,#7b2ff7,#c084fc);
+
+    color:white;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+}
+
+.income-list{
+
+    margin-top:35px;
+
+}
+
+.income-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:15px;
+
+    margin-top:12px;
+
+    border-radius:12px;
+
+    background:#14052c;
+
+    font-size:16.5px;
+
+}
+/* Back Button */
+
+.back-btn{
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: linear-gradient(135deg,#8B5CF6,#6D28D9);
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0,0,0,.3);
+    transition: .3s;
+    z-index: 999;
+}
+
+.back-btn:hover{
+    transform: scale(1.1);
+    background: linear-gradient(135deg,#A855F7,#7C3AED);
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- PWA: installable app icon + behaviour -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2b1552">
+    <link rel="icon" href="{{ url_for('static', filename='icons/icon-32.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-180.png') }}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script defer src="{{ url_for('static', filename='pwa.js') }}"></script>
+    <title>Settlement</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='settlement.css') }}?v=20260723v3">
+</head>
+
+<body>
+<a href="/dashboard" class="back-btn">
+    ←
+</a>
+<div class="container">
+
+    <h1>💸 Settlement</h1>
+
+    <div class="summary-card">
+        <h2>Total Pending (You Owe)</h2>
+        <h3>₹{{ "%.2f"|format(pending) }}</h3>
+        <p>Amount yet to be settled by you across all groups</p>
+    </div>
+
+    {% if group_summaries %}
+
+        {% for group in group_summaries %}
+
+        <div class="card">
+
+            <h2>📂 {{ group['group_name'] }} <span style="font-size:14px; color:#bbb;">(Code: {{ group['group_code'] }})</span></h2>
+
+            <p style="color:#ddd; margin-bottom:15px;">
+                {% if group['pending_count'] > 0 %}
+                    <span class="pending">{{ group['pending_count'] }} Pending</span>
+                    &nbsp; Total Pending: ₹{{ "%.2f"|format(group['pending_total']) }}
+                {% else %}
+                    <span class="paid">All Settled</span>
+                {% endif %}
+            </p>
+
+            <a href="/settlement/{{ group['group_id'] }}">
+                <button style="padding:12px 20px; width:auto; margin-top:0;">
+                    Open Settlement
+                </button>
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="card">
+            <h2>No Groups Found</h2>
+            <p>Create or join a group from Shared Expense page to see settlements here.</p>
+        </div>
+
+    {% endif %}
+
+</div>
+
+<script src="{{ url_for('static', filename='settlement.js') }}?v=20260723v3"></script>
+
+</body>
+</html>

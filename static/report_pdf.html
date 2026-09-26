@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expense Report</title>
+
+    <style>
+        body{
+            font-family:Arial,sans-serif;
+            padding:40px;
+        }
+
+        h1{
+            text-align:center;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:20px;
+        }
+
+        table,th,td{
+            border:1px solid black;
+        }
+
+        th,td{
+            padding:10px;
+            text-align:center;
+        }
+
+        .summary{
+            margin-top:20px;
+            margin-bottom:30px;
+        }
+
+        .summary p{
+            font-size:18px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<h1>Expense Tracker Report</h1>
+
+<div class="summary">
+
+    <p><strong>Total Income :</strong> ₹{{ total_income }}</p>
+
+    <p><strong>Total Expense :</strong> ₹{{ total_expense }}</p>
+
+    <p><strong>Total Savings :</strong> ₹{{ savings }}</p>
+
+</div>
+
+<table>
+
+<tr>
+    <th>Category</th>
+    <th>Amount</th>
+</tr>
+
+{% for row in categories %}
+
+<tr>
+
+    <td>{{ row['category'] }}</td>
+
+    <td>₹{{ row['total'] }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</body>
+</html>

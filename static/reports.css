@@ -1,0 +1,253 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#140028;
+    color:white;
+    min-height:100vh;
+    padding:30px;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+}
+
+/* Title */
+
+h1{
+    text-align:center;
+    margin-bottom:25px;
+    font-size:35px;
+    color:#fff;
+    text-shadow:0 0 10px #b54cff;
+}
+
+/* Summary Cards */
+
+.summary{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+    margin-bottom:25px;
+}
+
+.card{
+    background:#2b1147;
+    border-radius:18px;
+    padding:20px;
+    text-align:center;
+    border:1px solid rgba(190,120,255,.5);
+    box-shadow:
+        0 0 12px rgba(162,89,255,.7),
+        0 0 25px rgba(162,89,255,.5),
+        0 0 45px rgba(162,89,255,.3);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:
+        0 0 20px #b54cff,
+        0 0 40px #b54cff,
+        0 0 70px rgba(181,76,255,.8);
+}
+
+.card h3{
+    font-size:15px;
+    color:#ddd;
+}
+
+.card h2{
+    margin-top:10px;
+    font-size:28px;
+}
+
+.income h2{
+    color:#47ff7d;
+}
+
+.expense h2{
+    color:#ff5d73;
+}
+
+.savings h2{
+    color:#4fc3ff;
+}
+
+/* Filter Card */
+
+.filter-card{
+    background:#2b1147;
+    padding:20px;
+    border-radius:18px;
+    margin-bottom:25px;
+    border:1px solid rgba(190,120,255,.5);
+    box-shadow:
+        0 0 12px rgba(162,89,255,.6),
+        0 0 25px rgba(162,89,255,.4);
+}
+
+.filter-card h2{
+    margin-bottom:12px;
+}
+
+.filter-card input{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    margin-bottom:15px;
+    font-size:20px;
+    font-weight:600;
+}
+
+.filter-card button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    color:white;
+    font-weight:bold;
+    background:linear-gradient(90deg,#8A2BE2,#C54BFF);
+    box-shadow:0 0 15px rgba(181,76,255,.7);
+    transition:.3s;
+}
+
+.filter-card button:hover{
+    transform:scale(1.02);
+    box-shadow:0 0 25px #b54cff;
+}
+
+/* Charts */
+
+.chart-container{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    margin-bottom:25px;
+}
+
+.chart-card{
+    background:#2b1147;
+    border-radius:18px;
+    padding:20px;
+    border:1px solid rgba(190,120,255,.5);
+    box-shadow:
+        0 0 15px rgba(162,89,255,.6),
+        0 0 30px rgba(162,89,255,.35);
+    transition:.3s;
+}
+
+.chart-card:hover{
+    transform:translateY(-3px);
+    box-shadow:
+        0 0 20px #b54cff,
+        0 0 45px #b54cff;
+}
+
+.chart-card h2{
+    margin-bottom:15px;
+}
+
+.chart-card canvas{
+    width:100% !important;
+    height:240px !important;
+}
+
+/* Table */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:10px;
+}
+
+th{
+    background:#8A2BE2;
+    color:white;
+    padding:12px;
+}
+
+td{
+    padding:12px;
+    text-align:center;
+    border-bottom:1px solid rgba(255,255,255,.15);
+}
+
+/* Download */
+
+.download{
+    text-align:center;
+    margin-top:25px;
+}
+
+.download button{
+    padding:13px 30px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    color:white;
+    font-weight:bold;
+    background:linear-gradient(90deg,#8A2BE2,#C54BFF);
+    box-shadow:
+        0 0 15px rgba(181,76,255,.7),
+        0 0 30px rgba(181,76,255,.5);
+    transition:.3s;
+}
+
+.download button:hover{
+    transform:scale(1.05);
+    box-shadow:
+        0 0 25px #b54cff,
+        0 0 50px #b54cff;
+}
+
+/* Responsive */
+
+@media(max-width:900px){
+
+.summary{
+    grid-template-columns:1fr;
+}
+
+.chart-container{
+    grid-template-columns:1fr;
+}
+
+.chart-card canvas{
+    height:250px !important;
+}
+
+}
+/* Back Button */
+
+.back-btn{
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: linear-gradient(135deg,#8B5CF6,#6D28D9);
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0,0,0,.3);
+    transition: .3s;
+    z-index: 999;
+}
+
+.back-btn:hover{
+    transform: scale(1.1);
+    background: linear-gradient(135deg,#A855F7,#7C3AED);
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- PWA: installable app icon + behaviour -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2b1552">
+    <link rel="icon" href="{{ url_for('static', filename='icons/icon-32.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-180.png') }}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script defer src="{{ url_for('static', filename='pwa.js') }}"></script>
+    <title>Profile</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}?v=20260723v3">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<a href="/dashboard" class="back-btn">←</a>
+
+<div class="container">
+
+    <div class="profile-card">
+
+        <div class="profile-image">
+            {% if user['photo'] %}
+                <img src="{{ url_for('static', filename='uploads/profile_photos/' ~ user['photo']) }}" alt="Profile Photo">
+            {% else %}
+                <div class="avatar-initial">{{ (user['name'] or '?')[0]|upper }}</div>
+            {% endif %}
+        </div>
+
+        <div class="photo-actions">
+
+            <form action="/profile/photo" method="POST" enctype="multipart/form-data" id="photoForm">
+                <input type="file" name="photo" id="photoInput" accept="image/png,image/jpeg,image/gif,image/webp" hidden>
+                <button type="button" onclick="document.getElementById('photoInput').click()">
+                    {% if user['photo'] %}🔄 Change Photo{% else %}📷 Add Photo{% endif %}
+                </button>
+            </form>
+
+            {% if user['photo'] %}
+            <a
+                href="/profile/photo/delete"
+                onclick="return confirm('Remove your profile photo?')"
+                class="delete-photo-btn"
+            >
+                🗑️ Delete Photo
+            </a>
+            {% endif %}
+
+        </div>
+
+        <h1>👤 My Profile</h1>
+
+        <form method="POST">
+
+            <div class="info">
+
+                <label>Full Name</label>
+                <input
+                    type="text"
+                    name="name"
+                    value="{{ user['name'] }}"
+                    required
+                >
+
+                <label>Email</label>
+                <input
+                    type="email"
+                    name="email"
+                    value="{{ user['email'] }}"
+                    required
+                >
+
+                <label>Phone Number</label>
+                <input
+                    type="text"
+                    name="phone"
+                    value="{{ user['phone'] or '' }}"
+                >
+
+            </div>
+
+            <div class="buttons">
+
+                <button type="submit">
+                    💾 Save Profile
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='profile.js') }}?v=20260723v3"></script>
+
+</body>
+</html>

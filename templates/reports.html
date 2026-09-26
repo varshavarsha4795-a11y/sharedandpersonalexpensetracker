@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- PWA: installable app icon + behaviour -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2b1552">
+    <link rel="icon" href="{{ url_for('static', filename='icons/icon-32.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-180.png') }}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script defer src="{{ url_for('static', filename='pwa.js') }}"></script>
+    <title>Expense Reports</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='reports.css') }}?v=20260723v3">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <a href="/dashboard" class="back-btn">←</a>
+<div class="container">
+
+    <h1>📊 Expense Reports</h1>
+
+    <!-- Summary Cards -->
+    <div class="summary">
+
+        <div class="card income">
+            <h3>Total Income</h3>
+            <h2>₹{{ total_income }}</h2>
+        </div>
+
+        <div class="card expense">
+            <h3>Total Expense</h3>
+            <h2>₹{{ total_expense }}</h2>
+        </div>
+
+        <div class="card savings">
+            <h3>Total Savings</h3>
+            <h2>₹{{ savings }}</h2>
+        </div>
+
+    </div>
+
+    <!-- Filter -->
+    <div class="filter-card">
+
+        <h2>📅 Filter Report</h2>
+
+        <input type="month" id="monthFilter" name="month" value="{{ selected_month }}">
+
+        <button id="generateBtn">Generate Report</button>
+
+        {% if selected_month %}
+        <p style="color:#A855F7; margin-top:10px; font-weight:bold;">
+            Showing report for {{ selected_month }}
+            &nbsp;<a href="/reports" style="color:#fff; text-decoration:underline;">(clear filter)</a>
+        </p>
+        {% endif %}
+
+    </div>
+
+    <!-- Charts -->
+    <div class="chart-container">
+
+        <div class="chart-card">
+            <h2>📈 Monthly Expense Analysis</h2>
+            <canvas id="barChart"></canvas>
+        </div>
+
+        <div class="chart-card">
+            <h2>🥧 Expense Breakdown</h2>
+            <canvas id="pieChart"></canvas>
+        </div>
+
+    </div>
+
+    <!-- Top Spending -->
+    <div class="chart-card">
+
+        <h2>💸 Top Spending Categories</h2>
+
+        <table>
+
+            <tr>
+                <th>Category</th>
+                <th>Amount</th>
+            </tr>
+
+            {% for row in categories %}
+<tr>
+    <td>{{ row['category'] }}</td>
+    <td>₹{{ row['total'] }}</td>
+</tr>
+{% endfor %}
+
+            
+
+        </table>
+
+    </div>
+
+    <!-- Download -->
+    <div class="download">
+
+    <a href="/download_report{% if selected_month %}?month={{ selected_month }}{% endif %}" id="downloadReportLink">
+        <button type="button">
+            ⬇ Download Report
+        </button>
+    </a>
+
+</div>
+
+</div>
+<script>
+const chartLabels = {{ categories | map(attribute='category') | list | tojson }};
+const chartData = {{ categories | map(attribute='total') | list | tojson }};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='reports.js') }}?v=20260723v3"></script>
+
+<!-- Chart.js Library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Reports JS -->
+<script src="{{ url_for('static', filename='reports.js') }}?v=20260723v3"></script>
+
+</body>
+</html>

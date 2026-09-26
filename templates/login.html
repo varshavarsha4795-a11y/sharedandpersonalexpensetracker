@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- PWA: installable app icon + behaviour -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2b1552">
+    <link rel="icon" href="{{ url_for('static', filename='icons/icon-32.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-180.png') }}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script defer src="{{ url_for('static', filename='pwa.js') }}"></script>
+
+    <title>Expense Tracker Login</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=20260723v3">
+</head>
+
+<body>
+
+    <!-- APP TITLE -->
+    <div class="page-title">
+        Expense Tracker
+    </div>
+
+    <div class="main-container">
+
+        <!-- LEFT SIDE -->
+        <div class="left-section">
+
+            <img src="{{ url_for('static', filename='images/wallet.png') }}" alt="Wallet">
+
+        </div>
+
+        <!-- LOGIN CARD -->
+
+        <div class="login-card">
+
+            <h1>Welcome Back!</h1>
+
+            <p>Login to continue to your account</p>
+
+            <!-- Flash Message -->
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+
+            <div class="flash-message">
+
+                {{ messages[0] }}
+
+            </div>
+
+            {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="/">
+
+                <label>Email Address</label>
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required>
+
+                <label>Password</label>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required>
+
+                <div class="options">
+
+                    <label>
+
+                        <input type="checkbox">
+
+                        Remember Me
+
+                    </label>
+
+                    <a href="/forgot-password">
+
+                        Forgot Password?
+
+                    </a>
+
+                </div>
+
+                <button type="submit">
+
+                    LOGIN
+
+                </button>
+
+            </form>
+
+            <div class="bottom-link">
+
+                Don't have an account?
+
+                <a href="/register">
+
+                    Create Account
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- PWA: installable app icon + behaviour -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2b1552">
+    <link rel="icon" href="{{ url_for('static', filename='icons/icon-32.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-180.png') }}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script defer src="{{ url_for('static', filename='pwa.js') }}"></script>
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}?v=20260723v3">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="mobile-container">
+
+    <div class="header">
+        <div class="header-user">
+            <a href="/profile" class="header-avatar">
+                {% if user_photo %}
+                    <img src="{{ url_for('static', filename='uploads/profile_photos/' ~ user_photo) }}" alt="Profile Photo">
+                {% else %}
+                    <div class="header-avatar-initial">{{ (username or '?')[0]|upper }}</div>
+                {% endif %}
+            </a>
+
+            <div>
+                <p>Hello,</p>
+                <h1>{{ username }} 👋</h1>
+            </div>
+        </div>
+
+        <div class="notification" onclick="showNotification()" style="cursor:pointer;">
+            🔔
+        </div>
+    </div>
+
+    <div class="balance-card">
+
+        <div>
+            <p>Total Balance</p>
+            <h2>₹{{ balance }}</h2>
+            <span>Income - Expense</span>
+        </div>
+
+        <img src="{{ url_for('static', filename='images/wallet.png') }}">
+
+    </div>
+
+    <div class="stats">
+
+        <div class="card income">
+            <h4>Total Income</h4>
+            <h3>₹{{ income }}</h3>
+        </div>
+
+        <div class="card expense">
+            <h4>Total Expenses</h4>
+            <h3>₹{{ expense }}</h3>
+        </div>
+
+        <div class="card savings">
+            <h4>Savings</h4>
+            <h3>₹{{ savings }}</h3>
+        </div>
+
+    </div>
+
+    <div class="content">
+
+        <div class="transactions">
+
+            <h3>Recent Expenses</h3>
+
+            {% if expenses %}
+
+                {% for item in expenses %}
+
+                <div class="transaction">
+                    <span>{{ item['category'] }}</span>
+                    <span>-₹{{ item['amount'] }}</span>
+                </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="transaction">
+                    <span>No Expenses</span>
+                    <span>₹0</span>
+                </div>
+
+            {% endif %}
+
+        </div>
+
+        <div class="actions">
+
+            <h3>Quick Actions</h3>
+
+            <a href="/expense">
+                <button type="button">➕ Add Expense</button>
+            </a>
+
+            <a href="/income">
+                <button type="button">💰 Add Income</button>
+            </a>
+
+            <button type="button" onclick="scanBill()">
+                📷 Scan Bill
+            </button>
+
+            <button type="button" onclick="voiceExpense()">
+                🎤 Voice Expense
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="navbar">
+
+        <div>
+            <a href="/group_expense" style="color:white;text-decoration:none;">
+                👥<br>Group
+            </a>
+        </div>
+
+        <div>
+            <a href="/my_groups" style="color:white;text-decoration:none;">
+                📂<br>My Groups
+            </a>
+        </div>
+
+        <div>
+            <a href="/settlement" style="color:white;text-decoration:none;">
+                📑<br>Settlement
+            </a>
+        </div>
+
+        <div>
+            <a href="/reports" style="color:white;text-decoration:none;">
+                📊<br>Reports
+            </a>
+        </div>
+
+        <div>
+            <a href="/settings" style="color:white;text-decoration:none;">
+                ⚙️<br>Settings
+            </a>
+        </div>
+
+        <div>
+            <a href="/profile" style="color:white;text-decoration:none;">
+                👤<br>Profile
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function showNotification() {
+
+    alert("🔔 Notifications\n\nNo New Notifications");
+
+}
+
+function scanBill() {
+
+    alert("📷 Scan Bill\n\nComing Soon 🚀");
+
+}
+
+function voiceExpense() {
+
+    alert("🎤 Voice Expense\n\nComing Soon 🚀");
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,136 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#120024,#220046,#3b0764);
+    min-height:100vh;
+    color:#fff;
+}
+
+.container{
+    width:95%;
+    max-width:900px;
+    margin:auto;
+    padding:30px;
+}
+
+.container h1{
+    text-align:center;
+    margin-bottom:30px;
+    font-size:38px;
+    text-shadow:0 0 12px #b266ff;
+}
+
+.card{
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(12px);
+    border-radius:20px;
+    padding:25px;
+    margin-bottom:25px;
+    box-shadow:0 0 20px rgba(178,102,255,.25);
+    border:1px solid rgba(255,255,255,.1);
+}
+
+.card h2{
+    margin-bottom:20px;
+    color:#fff;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    margin-bottom:8px;
+    color:#ddd;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border:none;
+    outline:none;
+    border-radius:12px;
+    background:#24123c;
+    color:white;
+    font-size:20px;
+    font-weight:600;
+}
+
+input[type="checkbox"]{
+    width:auto;
+    margin-right:10px;
+    transform:scale(1.2);
+}
+
+button{
+    width:100%;
+    padding:15px;
+    margin-top:20px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(90deg,#8a2be2,#c84dff);
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 0 20px #c84dff;
+}
+
+p{
+    color:#ddd;
+    line-height:1.7;
+}
+
+@media(max-width:768px){
+
+.container{
+    padding:15px;
+}
+
+.container h1{
+    font-size:30px;
+}
+
+.card{
+    padding:20px;
+}
+
+button{
+    font-size:15px;
+}
+
+}
+/* Back Button */
+
+.back-btn{
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: linear-gradient(135deg,#8B5CF6,#6D28D9);
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0,0,0,.3);
+    transition: .3s;
+    z-index: 999;
+}
+
+.back-btn:hover{
+    transform: scale(1.1);
+    background: linear-gradient(135deg,#A855F7,#7C3AED);
+}

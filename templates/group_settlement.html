@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- PWA: installable app icon + behaviour -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2b1552">
+    <link rel="icon" href="{{ url_for('static', filename='icons/icon-32.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-180.png') }}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script defer src="{{ url_for('static', filename='pwa.js') }}"></script>
+    <title>{{ group['group_name'] }} - Settlement</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='settlement.css') }}?v=20260723v3">
+</head>
+
+<body>
+<a href="/settlement" class="back-btn">
+    ←
+</a>
+<div class="container">
+
+    <h1>💸 {{ group['group_name'] }}</h1>
+
+    <div class="summary-card">
+        <h2>Group Code</h2>
+        <h3 style="font-size:26px;">{{ group['group_code'] }}</h3>
+        <p>Share this code so others can join and split expenses with this group</p>
+    </div>
+
+    <div class="card">
+
+        <h2>👥 Members &amp; Settlement Status</h2>
+
+        {% if rows %}
+
+        <table>
+
+            <tr>
+                <th>Member</th>
+                <th>Pays To</th>
+                <th>Amount</th>
+                <th>Status</th>
+            </tr>
+
+            {% for row in rows %}
+            <tr>
+                <td>{{ row['member_name'] }}</td>
+                <td>{{ row['receiver_name'] }}</td>
+                <td>₹{{ "%.2f"|format(row['amount']) }}</td>
+                <td>
+
+                    {% if row['receiver_id'] == current_user_id %}
+
+                        {% if row['status'] == 'Pending' %}
+                            <a href="/mark_paid/{{ row['settlement_id'] }}">
+                                <button style="padding:8px 15px; width:auto; margin-top:0;">
+                                    ✅ Mark Paid
+                                </button>
+                            </a>
+                        {% else %}
+                            <a href="/mark_unpaid/{{ row['settlement_id'] }}">
+                                <button style="padding:8px 15px; width:auto; margin-top:0; background:linear-gradient(90deg,#ff9800,#ffb74d);">
+                                    ↩ Mark Not Paid
+                                </button>
+                            </a>
+                        {% endif %}
+
+                    {% else %}
+
+                        {% if row['status'] == 'Pending' %}
+                            <span class="pending">Pending</span>
+                        {% else %}
+                            <span class="paid">Paid</span>
+                        {% endif %}
+
+                    {% endif %}
+
+                </td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+        {% else %}
+
+            <p>No settlements yet - add a shared expense in this group first.</p>
+
+        {% endif %}
+
+    </div>
+
+    <div class="card">
+
+        <h2>📋 All Members</h2>
+
+        <table>
+            <tr>
+                <th>Name</th>
+            </tr>
+            {% for member in members %}
+            <tr>
+                <td>{{ member['name'] }}{% if member['user_id'] == current_user_id %} (You){% endif %}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

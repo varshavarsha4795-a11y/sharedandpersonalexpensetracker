@@ -1,0 +1,271 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    font-size:17px;
+    min-height:100vh;
+
+    background:
+    radial-gradient(circle at top left,#240046,#0b021d 35%),
+    radial-gradient(circle at bottom right,#3c096c,#0b021d 40%),
+    #0b021d;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.flash-msg{
+    padding:14px 18px;
+    border-radius:14px;
+    margin-bottom:18px;
+    text-align:center;
+    font-weight:600;
+    font-size:15px;
+    line-height:1.4;
+    animation:flashIn .35s ease;
+}
+
+.flash-success{
+    background:rgba(168,85,247,0.15);
+    border:1px solid #A855F7;
+    color:#fff;
+    box-shadow:0 0 15px rgba(168,85,247,0.3);
+}
+
+.flash-error{
+    background:linear-gradient(135deg,rgba(255,90,90,0.22),rgba(255,140,60,0.14));
+    border:1px solid #ff5c5c;
+    color:#ffe3d9;
+    box-shadow:0 0 18px rgba(255,92,92,0.4);
+}
+
+@keyframes flashIn{
+    from{opacity:0; transform:translateY(-8px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+.expense-card{
+
+    width:600px;
+    max-width:92vw;
+
+    background:rgba(26,8,56,0.92);
+
+    border:1px solid rgba(168,85,247,0.4);
+
+    border-radius:25px;
+
+    padding:40px;
+
+    backdrop-filter:blur(20px);
+
+    box-shadow:
+    0 0 20px rgba(168,85,247,0.25),
+    0 0 50px rgba(168,85,247,0.15);
+
+}
+
+.expense-card h1{
+    text-align:center;
+    color:white;
+    font-size:32px;
+    margin-bottom:10px;
+}
+
+.expense-card p{
+    text-align:center;
+    color:#b8b8d0;
+    margin-bottom:30px;
+}
+
+.expense-card p::after{
+    content:'';
+    display:block;
+    width:80px;
+    height:3px;
+    background:#a855f7;
+    margin:15px auto 0;
+    border-radius:10px;
+}
+
+label{
+    display:block;
+    color:white;
+    margin-top:18px;
+    margin-bottom:8px;
+    font-size:16px;
+    font-weight:600;
+}
+
+input,
+select,
+textarea{
+
+    width:100%;
+
+    padding:16px;
+
+    background:#14052c;
+
+    border:1px solid #4c1d95;
+
+    border-radius:12px;
+
+    color:white;
+
+    outline:none;
+
+    font-size:20px;
+
+    font-weight:600;
+}
+
+/* Make the native calendar icon visible on this dark theme */
+input[type="date"]{
+    color-scheme:dark;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator{
+    filter:invert(1) brightness(1.6);
+    cursor:pointer;
+    padding:4px;
+    border-radius:6px;
+}
+
+select{
+    cursor:pointer;
+}
+
+textarea{
+    resize:none;
+    height:90px;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+
+    border-color:#a855f7;
+
+    box-shadow:0 0 15px rgba(168,85,247,.5);
+
+}
+
+button{
+
+    width:100%;
+
+    margin-top:25px;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(90deg,#7b2ff7,#c084fc);
+
+    color:white;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 0 20px rgba(168,85,247,.7);
+
+}
+
+.recent{
+
+    margin-top:35px;
+
+}
+
+.recent h2{
+
+    color:white;
+
+    margin-bottom:18px;
+
+}
+
+.item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:15px 18px;
+
+    margin-bottom:12px;
+
+    background:#14052c;
+
+    border:1px solid rgba(168,85,247,.25);
+
+    border-radius:12px;
+
+    color:white;
+
+    transition:.3s;
+
+}
+
+.item:hover{
+
+    transform:translateX(5px);
+
+    border-color:#a855f7;
+
+    box-shadow:0 0 15px rgba(168,85,247,.3);
+
+}
+
+.amount{
+
+    color:#ff6b81;
+
+    font-weight:600;
+
+}
+/* Back Button */
+
+.back-btn{
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: linear-gradient(135deg,#8B5CF6,#6D28D9);
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0,0,0,.3);
+    transition: .3s;
+    z-index: 999;
+}
+
+.back-btn:hover{
+    transform: scale(1.1);
+    background: linear-gradient(135deg,#A855F7,#7C3AED);
+}

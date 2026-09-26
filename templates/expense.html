@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- PWA: installable app icon + behaviour -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2b1552">
+    <link rel="icon" href="{{ url_for('static', filename='icons/icon-32.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-180.png') }}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script defer src="{{ url_for('static', filename='pwa.js') }}"></script>
+    <title>Expense Manager</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='expense.css') }}?v=20260723v3">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <a href="/dashboard" class="back-btn">
+    ←
+</a>
+
+<div class="expense-card">
+
+    <h1>💸 Expense Manager</h1>
+    <p>Track every rupee wisely</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-msg {{ 'flash-error' if category == 'error' else 'flash-success' }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+
+        <label>📝 Expense Name</label>
+        <input type="text" name="description" placeholder="Enter Expense Name" required>
+
+        <label>💰 Amount</label>
+        <input type="number" name="amount" placeholder="Enter Amount" required>
+
+        <label>📂 Category</label>
+        <select name="category">
+
+            <option>Food</option>
+            <option>Shopping</option>
+            <option>Transport</option>
+            <option>Rent</option>
+            <option>Bills</option>
+            <option>Entertainment</option>
+            <option>Medical</option>
+            <option>Education</option>
+            <option>Travel</option>
+            <option>Others</option>
+
+        </select>
+
+        <label>📅 Date</label>
+        <input type="date" name="date" required>
+
+        <label>📝 Notes</label>
+        <textarea name="description_note" placeholder="Enter Notes"></textarea>
+
+        <button type="submit">
+            ➕ Add Expense
+        </button>
+
+    </form>
+
+    <div class="recent">
+
+        <h2>📋 Recent Expenses</h2>
+
+        {% for expense in expenses %}
+
+        <div class="item">
+
+            <span>{{ expense['category'] }}</span>
+
+            <span class="amount">
+                ₹{{ expense['amount'] }}
+            </span>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>
